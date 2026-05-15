@@ -1,0 +1,193 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Admin Dashboard</h2>
+    <a href="{{ url_for('admin_charts') }}" class="btn btn-primary">📊 View Charts</a>
+</div>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <form method="POST" action="{{ url_for('admin_search') }}" class="row g-3">
+            <div class="col-md-4">
+                <select name="search_type" class="form-select">
+                    <option value="student">Search Student</option>
+                    <option value="company">Search Company</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <input type="text" name="search_query" class="form-control" placeholder="Enter name, email, or contact">
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary w-100">Search</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% if search_results is defined %}
+<div class="alert alert-info">
+    Showing {{ search_results|length }} result(s) for "{{ search_query }}"
+    <a href="{{ url_for('admin_dashboard') }}" class="ms-3 btn btn-sm btn-secondary">Clear Search</a>
+</div>
+{% endif %}
+
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card text-center bg-primary text-white">
+            <div class="card-body"><h3>{{ students|length }}</h3><p>Total Students</p></div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center bg-success text-white">
+            <div class="card-body"><h3>{{ companies|length }}</h3><p>Total Companies</p></div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center bg-info text-white">
+            <div class="card-body"><h3>{{ drives|length }}</h3><p>Placement Drives</p></div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center bg-warning text-white">
+            <div class="card-body"><h3>{{ applications|length }}</h3><p>Applications</p></div>
+        </div>
+    </div>
+</div>
+
+<ul class="nav nav-tabs mb-3" role="tablist">
+    <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#companies">Companies</a></li>
+    <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#students">Students</a></li>
+    <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#drives">Placement Drives</a></li>
+</ul>
+
+<div class="tab-content">
+
+    <!-- COMPANIES TAB -->
+    <div class="tab-pane fade show active" id="companies">
+        <h4 class="mb-3">Company Management</h4>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th><th>Name</th><th>Email</th><th>Contact</th><th>Website</th><th>Status</th><th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% set list = search_results if (search_results is defined and search_type == 'company') else companies %}
+                {% for company in list %}
+                <tr>
+                    <td>{{ company.id }}</td>
+                    <td>{{ company.name }}</td>
+                    <td>{{ company.email }}</td>
+                    <td>{{ company.hr_contact }}</td>
+                    <td>{% if company.website %}<a href="{{ company.website }}" target="_blank">Link</a>{% else %}-{% endif %}</td>
+                    <td>
+                        {% if company.blacklisted %}
+                            <span class="badge bg-danger">Blacklisted</span>
+                        {% elif company.approved %}
+                            <span class="badge bg-success">Approved</span>
+                        {% else %}
+                            <span class="badge bg-warning">Pending</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <div class="d-flex flex-wrap gap-1">
+                            {% if not company.approved and not company.blacklisted %}
+                            <a href="{{ url_for('approve_company', id=company.id) }}" class="btn btn-sm btn-success">Approve</a>
+                            <a href="{{ url_for('reject_company', id=company.id) }}" class="btn btn-sm btn-danger" onclick="return confirm('Reject and remove this company?')">Reject</a>
+                            {% endif %}
+                            {% if company.approved and not company.blacklisted %}
+                            <a href="{{ url_for('blacklist_company', id=company.id) }}" class="btn btn-sm btn-warning" onclick="return confirm('Blacklist this company?')">Blacklist</a>
+                            {% endif %}
+                            <a href="{{ url_for('admin_edit_company', id=company.id) }}" class="btn btn-sm btn-secondary">Edit</a>
+                            <a href="{{ url_for('delete_company', id=company.id) }}" class="btn btn-sm btn-danger" onclick="return confirm('Permanently delete this company?')">Delete</a>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- STUDENTS TAB -->
+    <div class="tab-pane fade" id="students">
+        <h4 class="mb-3">Student Management</h4>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th><th>Name</th><th>Email</th><th>Contact</th><th>Skills</th><th>Status</th><th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% set list = search_results if (search_results is defined and search_type == 'student') else students %}
+                {% for student in list %}
+                <tr>
+                    <td>{{ student.id }}</td>
+                    <td>{{ student.name }}</td>
+                    <td>{{ student.email }}</td>
+                    <td>{{ student.contact }}</td>
+                    <td>{{ student.skills[:40] if student.skills else '-' }}</td>
+                    <td>
+                        {% if student.blacklisted %}
+                            <span class="badge bg-danger">Blacklisted</span>
+                        {% else %}
+                            <span class="badge bg-success">Active</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <div class="d-flex flex-wrap gap-1">
+                            {% if not student.blacklisted %}
+                            <a href="{{ url_for('blacklist_student', id=student.id) }}" class="btn btn-sm btn-warning" onclick="return confirm('Blacklist this student?')">Blacklist</a>
+                            {% endif %}
+                            <a href="{{ url_for('admin_edit_student', id=student.id) }}" class="btn btn-sm btn-secondary">Edit</a>
+                            <a href="{{ url_for('delete_student', id=student.id) }}" class="btn btn-sm btn-danger" onclick="return confirm('Permanently delete this student?')">Delete</a>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- DRIVES TAB -->
+    <div class="tab-pane fade" id="drives">
+        <h4 class="mb-3">Placement Drives</h4>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th><th>Job Title</th><th>Company ID</th><th>Deadline</th><th>Status</th><th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for drive in drives %}
+                <tr>
+                    <td>{{ drive.id }}</td>
+                    <td>{{ drive.job_title }}</td>
+                    <td>{{ drive.company_id }}</td>
+                    <td>{{ drive.deadline.strftime('%d %b %Y') }}</td>
+                    <td>
+                        <span class="badge bg-{{
+                            'success'   if drive.status == 'Approved' else
+                            'danger'    if drive.status == 'Rejected' else
+                            'secondary' if drive.status == 'Closed' else
+                            'warning' }}">{{ drive.status }}</span>
+                    </td>
+                    <td>
+                        <div class="d-flex flex-wrap gap-1">
+                            {% if drive.status == 'Pending' %}
+                            <a href="{{ url_for('approve_drive', id=drive.id) }}" class="btn btn-sm btn-success">Approve</a>
+                            <a href="{{ url_for('reject_drive', id=drive.id) }}" class="btn btn-sm btn-danger">Reject</a>
+                            {% endif %}
+                            <a href="{{ url_for('admin_delete_drive', id=drive.id) }}" class="btn btn-sm btn-danger" onclick="return confirm('Delete this drive and all its applications?')">Delete</a>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+{% endblock %}

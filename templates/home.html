@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Placement Portal - Home</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        .hero-section {
+            background: linear-gradient(135deg, #7b2d2f 0%, #5a2123 100%);
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+        
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            color: #f5efe6;
+        }
+        
+        .hero-buttons .btn {
+            margin: 10px;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .features-section {
+            padding: 80px 0;
+            background-color: #f5efe6;
+        }
+        
+        .feature-card {
+            text-align: center;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            transition: transform 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #7b2d2f;
+            margin-bottom: 15px;
+        }
+        
+        .feature-text {
+            color: #3a1f1f;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #7b2d2f;">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                🎓 Placement Portal
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#features">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <h1 class="hero-title"> Placement Portal</h1>
+            <p class="hero-subtitle">Streamlining Campus Recruitment for Students, Companies, and Institutes</p>
+            <div class="hero-buttons">
+                <a href="{{ url_for('login') }}" class="btn btn-light btn-lg">Login</a>
+                <a href="{{ url_for('register', role='student') }}" class="btn btn-warning btn-lg" style="background-color: #d4a017; border: none; color: #3a1f1f;">Get Started</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Features Section -->
+    <section class="features-section" id="features">
+        <div class="container">
+            <h2 class="text-center mb-5" style="color: #7b2d2f; font-weight: bold; font-size: 2.5rem;">Key Features</h2>
+            
+            <div class="row">
+                <!-- Feature 1 -->
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon"></div>
+                        <h3 class="feature-title">For Students</h3>
+                        <p class="feature-text">Browse approved placement drives, apply with one click, and track your application status in real-time.</p>
+                    </div>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon"></div>
+                        <h3 class="feature-title">For Companies</h3>
+                        <p class="feature-text">Post job openings, review applications, shortlist candidates, and manage recruitment efficiently.</p>
+                    </div>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon"></div>
+                        <h3 class="feature-title">For Institutes</h3>
+                        <p class="feature-text">Manage companies, approve drives, track placements, and maintain complete recruitment records.</p>
+                    </div>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon"></div>
+                        <h3 class="feature-title">Analytics & Reports</h3>
+                        <p class="feature-text">View statistics, track application trends, and generate comprehensive placement reports.</p>
+                    </div>
+                </div>
+
+                <!-- Feature 5 -->
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon"></div>
+                        <h3 class="feature-title">Secure & Reliable</h3>
+                        <p class="feature-text">Role-based access control, secure authentication, and encrypted data storage.</p>
+                    </div>
+                </div>
+
+                <!-- Feature 6 -->
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon"></div>
+                        <h3 class="feature-title">Responsive Design</h3>
+                        <p class="feature-text">Access from any device - desktop, tablet, or mobile. Works seamlessly everywhere.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-center py-4" style="background-color: #7b2d2f; color: white;">
+        <div class="container">
+            <p class="mb-0">© 2026 Placement Portal. Streamlining Campus Recruitment.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

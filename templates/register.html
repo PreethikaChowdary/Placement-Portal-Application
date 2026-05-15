@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-6">
+        <div class="card shadow">
+            <div class="card-body p-4">
+                <h2 class="text-center mb-4">Register as {{ role|capitalize }}</h2>
+                
+                <form method="POST" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label class="form-label">{% if role == 'company' %}Company Name{% else %}Full Name{% endif %}</label>
+                        <input type="text" name="name" class="form-control" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" name="email" class="form-control" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Password</label>
+                        <input type="password" name="password" class="form-control" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Contact Number</label>
+                        <input type="tel" name="contact" class="form-control" required>
+                    </div>
+
+                    {% if role == 'student' %}
+                    <div class="mb-3">
+                        <label class="form-label">Education</label>
+                        <textarea name="education" class="form-control" rows="2" placeholder="B.Tech CSE, CGPA: 8.5"></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Skills</label>
+                        <textarea name="skills" class="form-control" rows="2" placeholder="Python, Flask, SQL"></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Upload Resume</label>
+                        <input type="file" name="resume" class="form-control" accept=".pdf,.doc,.docx">
+                    </div>
+                    {% endif %}
+
+                    {% if role == 'company' %}
+                    <div class="mb-3">
+                        <label class="form-label">Website</label>
+                        <input type="url" name="website" class="form-control">
+                    </div>
+                    {% endif %}
+
+                    <button type="submit" class="btn btn-success w-100 mb-3">Register</button>
+                </form>
+
+                <div class="text-center">
+                    <a href="{{ url_for('login') }}">Already have an account? Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}My Notifications{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2> My Notifications</h2>
+    <a href="{{ url_for('student_dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
+</div>
+
+{% if notifications %}
+<div class="row">
+    {% for app, drive in notifications %}
+    <div class="col-md-6 mb-3">
+        <div class="card h-100 border-{{ 'success' if app.status == 'Selected' else 'primary' if app.status == 'Shortlisted' else 'danger' }}">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                    <h5 class="card-title mb-0">{{ drive.job_title }}</h5>
+                    <span class="badge bg-{{ 'success' if app.status == 'Selected' else 'primary' if app.status == 'Shortlisted' else 'danger' }}">{{ app.status }}</span>
+                </div>
+                {% if app.status == 'Selected' %}
+                <div class="alert alert-success py-2 mb-2 small">🎉 <strong>Congratulations!</strong> You have been selected.</div>
+                {% elif app.status == 'Shortlisted' %}
+                <div class="alert alert-info py-2 mb-2 small">📋 You have been <strong>shortlisted</strong>. Stay prepared!</div>
+                {% elif app.status == 'Rejected' %}
+                <div class="alert alert-danger py-2 mb-2 small">❌ Your application was <strong>not selected</strong>. Keep trying!</div>
+                {% endif %}
+                <p class="small text-muted mb-0"><strong>Applied on:</strong> {{ app.application_date.strftime('%d %b %Y') }}</p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="alert alert-info">No notifications yet. You will be notified when a company updates your application status.</div>
+{% endif %}
+{% endblock %}

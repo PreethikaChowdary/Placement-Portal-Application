@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+
+{% block title %}API Testing{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">API Endpoints Testing</h2>
+
+<div class="alert alert-info">
+    <strong>Note:</strong> These are JSON-based REST APIs that can be accessed programmatically.
+    Click the buttons below to test them in your browser.
+</div>
+
+<div class="row">
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5> Statistics API</h5>
+            </div>
+            <div class="card-body">
+                <p>Get overall system statistics</p>
+                <code>GET /api/statistics</code>
+                <br><br>
+                <a href="/api/statistics" target="_blank" class="btn btn-primary btn-sm">Test API</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <h5> Students API</h5>
+            </div>
+            <div class="card-body">
+                <p>Get all students (JSON format)</p>
+                <code>GET /api/students</code>
+                <br><br>
+                <a href="/api/students" target="_blank" class="btn btn-success btn-sm">Test API</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-header bg-info text-white">
+                <h5> Companies API</h5>
+            </div>
+            <div class="card-body">
+                <p>Get all companies (JSON format)</p>
+                <code>GET /api/companies</code>
+                <br><br>
+                <a href="/api/companies" target="_blank" class="btn btn-info btn-sm">Test API</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-header bg-warning text-white">
+                <h5> Placement Drives API</h5>
+            </div>
+            <div class="card-body">
+                <p>Get all placement drives (JSON format)</p>
+                <code>GET /api/drives</code>
+                <br><br>
+                <a href="/api/drives" target="_blank" class="btn btn-warning btn-sm">Test API</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-header bg-danger text-white">
+                <h5> Applications API</h5>
+            </div>
+            <div class="card-body">
+                <p>Get all applications (JSON format)</p>
+                <code>GET /api/applications</code>
+                <br><br>
+                <a href="/api/applications" target="_blank" class="btn btn-danger btn-sm">Test API</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card mt-4">
+    <div class="card-header">
+        <h5> Complete API Documentation</h5>
+    </div>
+    <div class="card-body">
+        <h6>Student APIs:</h6>
+        <ul>
+            <li><code>GET /api/students</code> - Get all students</li>
+            <li><code>GET /api/students/&lt;id&gt;</code> - Get single student</li>
+            <li><code>POST /api/students</code> - Create new student</li>
+            <li><code>PUT /api/students/&lt;id&gt;</code> - Update student</li>
+            <li><code>DELETE /api/students/&lt;id&gt;</code> - Delete student</li>
+        </ul>
+
+        <h6>Company APIs:</h6>
+        <ul>
+            <li><code>GET /api/companies</code> - Get all companies</li>
+        </ul>
+
+        <h6>Placement Drive APIs:</h6>
+        <ul>
+            <li><code>GET /api/drives</code> - Get all drives</li>
+            <li><code>GET /api/drives/&lt;id&gt;</code> - Get single drive</li>
+        </ul>
+
+        <h6>Application APIs:</h6>
+        <ul>
+            <li><code>GET /api/applications</code> - Get all applications</li>
+            <li><code>GET /api/applications/drive/&lt;drive_id&gt;</code> - Get applications by drive</li>
+        </ul>
+
+        <h6>Statistics API:</h6>
+        <ul>
+            <li><code>GET /api/statistics</code> - Get system statistics</li>
+        </ul>
+    </div>
+</div>
+
+<div class="alert alert-success mt-4">
+    <strong> All APIs support standard HTTP methods:</strong>
+    <ul class="mb-0">
+        <li><strong>GET</strong> - Retrieve data</li>
+        <li><strong>POST</strong> - Create new records</li>
+        <li><strong>PUT</strong> - Update existing records</li>
+        <li><strong>DELETE</strong> - Delete records</li>
+    </ul>
+</div>
+{% endblock %}

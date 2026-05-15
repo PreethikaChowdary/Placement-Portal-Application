@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}View Applications{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Applications for This Drive</h2>
+    <a href="{{ url_for('company_dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Total Applications: {{ applications|length }}</h5>
+        
+        <table class="table table-striped mt-3">
+            <thead>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Email</th>
+                    <th>Contact</th>
+                    <th>Skills</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in applications %}
+                <tr>
+                    <td>{{ item.student.name }}</td>
+                    <td>{{ item.student.email }}</td>
+                    <td>{{ item.student.contact }}</td>
+                    <td>{{ item.student.skills[:50] }}...</td>
+                    <td>
+                        <span class="badge bg-{{ 'success' if item.app.status == 'Selected' else 'primary' if item.app.status == 'Shortlisted' else 'info' }}">
+                            {{ item.app.status }}
+                        </span>
+                    </td>
+                    <td>
+                        <div class="btn-group btn-group-sm">
+                            <a href="{{ url_for('update_application_status', app_id=item.app.id, status='Shortlisted') }}" 
+                               class="btn btn-primary">Shortlist</a>
+                            <a href="{{ url_for('update_application_status', app_id=item.app.id, status='Selected') }}" 
+                               class="btn btn-success">Select</a>
+                            <a href="{{ url_for('update_application_status', app_id=item.app.id, status='Rejected') }}" 
+                               class="btn btn-danger">Reject</a>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        {% if not applications %}
+        <div class="alert alert-info mt-3">
+            No applications received yet for this drive.
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

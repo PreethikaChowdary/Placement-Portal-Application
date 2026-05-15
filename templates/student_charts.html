@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}My Application Stats{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2> My Application Stats</h2>
+    <a href="{{ url_for('student_dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-md-5 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title text-center">Application Status Distribution</h5>
+                <canvas id="studentPie"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title text-center">Application Breakdown</h5>
+                <canvas id="studentBar"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<script>
+    const data = [{{ applied }}, {{ shortlisted }}, {{ selected }}, {{ rejected }}];
+    const labels = ['Applied', 'Shortlisted', 'Selected', 'Rejected'];
+    const colors = ['#d4a017', '#f0ad4e', '#28a745', '#7b2d2f'];
+    new Chart(document.getElementById('studentPie'), {
+        type: 'pie',
+        data: { labels: labels, datasets: [{ data: data, backgroundColor: colors }] }
+    });
+    new Chart(document.getElementById('studentBar'), {
+        type: 'bar',
+        data: { labels: labels, datasets: [{ label: 'Count', data: data, backgroundColor: colors }] },
+        options: { plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
+    });
+</script>
+{% endblock %}

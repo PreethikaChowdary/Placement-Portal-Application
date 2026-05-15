@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% block title %}Student Dashboard{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Student Dashboard</h2>
+    <div class="d-flex gap-2">
+        {% set notif_count = applications | selectattr('status', 'ne', 'Applied') | list | length %}
+        <a href="{{ url_for('student_notifications') }}" class="btn btn-secondary position-relative">
+             Notifications
+            {% if notif_count > 0 %}
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{{ notif_count }}</span>
+            {% endif %}
+        </a>
+        <a href="{{ url_for('student_charts') }}" class="btn btn-secondary">📊 My Stats</a>
+        <a href="{{ url_for('student_profile') }}" class="btn btn-primary">Update Profile</a>
+    </div>
+</div>
+
+<ul class="nav nav-tabs mb-4" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" data-bs-toggle="tab" href="#available">
+            Available Drives <span class="badge bg-primary ms-1">{{ drives|length }}</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="tab" href="#applied">
+            My Applications <span class="badge bg-primary ms-1">{{ applications|length }}</span>
+        </a>
+    </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade show active" id="available">
+        <h4 class="mb-3">Available Placement Drives</h4>
+        <div class="row">
+            {% for drive in drives %}
+            <div class="col-md-6 mb-3">
+                <div class="card h-100 border-primary">
+                    <div class="card-body">
+                        <h5 class="card-title text-primary">{{ drive.job_title }}</h5>
+                        <p class="card-text text-muted small">{{ drive.job_description[:150] }}...</p>
+                        <p class="small mb-1"><strong>Skills:</strong> {{ drive.required_skills }}</p>
+                        <p class="small mb-1"><strong>Experience:</strong> {{ drive.experience }}</p>
+                        <p class="small mb-1"><strong>Salary:</strong> {{ drive.salary_range }}</p>
+                        <p class="small mb-1"><strong>Eligibility:</strong> {{ drive.eligibility }}</p>
+                        <p class="small mb-3"><strong>Deadline:</strong> {{ drive.deadline.strftime('%d %b %Y') }}</p>
+                        {% set already_applied = namespace(value=False) %}
+                        {% for app in applications %}
+                            {% if app.drive_id == drive.id %}{% set already_applied.value = True %}{% endif %}
+                        {% endfor %}
+                        {% if already_applied.value %}
+                            <button class="btn btn-secondary btn-sm" disabled>✓ Already Applied</button>
+                        {% else %}
+                            <a href="{{ url_for('apply_drive', drive_id=drive.id) }}" class="btn btn-primary btn-sm">Apply Now</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% if not drives %}
+        <div class="alert alert-info">No placement drives available at the moment.</div>
+        {% endif %}
+    </div>
+
+    <div class="tab-pane fade" id="applied">
+        <h4 class="mb-3">My Applications & Status</h4>
+        <table class="table table-striped">
+            <thead>
+                <tr><th>Drive ID</th><th>Application Date</th><th>Status</th><th>Notification</th></tr>
+            </thead>
+            <tbody>
+                {% for app in applications %}
+                <tr>
+                    <td>{{ app.drive_id }}</td>
+                    <td>{{ app.application_date.strftime('%d %b %Y') }}</td>
+                    <td>
+                        <span class="badge bg-{{
+                            'success' if app.status == 'Selected' else
+                            'primary' if app.status == 'Shortlisted' else
+                            'danger'  if app.status == 'Rejected' else
+                            'info' }}">{{ app.status }}</span>
+                    </td>
+                    <td>
+                        {% if app.status == 'Selected' %}
+                            <span class="text-success small">🎉 You have been selected!</span>
+                        {% elif app.status == 'Shortlisted' %}
+                            <span class="text-primary small">📋 You have been shortlisted.</span>
+                        {% elif app.status == 'Rejected' %}
+                            <span class="text-danger small">❌ Not moved forward.</span>
+                        {% else %}
+                            <span class="text-muted small">⏳ Under review.</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% if not applications %}
+        <div class="alert alert-info">You haven't applied to any drives yet.</div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

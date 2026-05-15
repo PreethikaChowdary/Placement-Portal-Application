@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block title %}Company Charts{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2> My Drive Analytics</h2>
+    <a href="{{ url_for('company_dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
+</div>
+
+<div class="row">
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title text-center">Applications per Drive</h5>
+                <canvas id="driveAppChart"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title text-center">Application Status per Drive</h5>
+                <canvas id="statusChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<script>
+    const labels = {{ drive_labels | tojson }};
+    new Chart(document.getElementById('driveAppChart'), {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{ label: 'Total Applications', data: {{ drive_counts | tojson }}, backgroundColor: '#7b2d2f' }]
+        },
+        options: { plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
+    });
+    new Chart(document.getElementById('statusChart'), {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [
+                { label: 'Shortlisted', data: {{ shortlisted | tojson }}, backgroundColor: '#d4a017' },
+                { label: 'Selected',    data: {{ selected | tojson }},    backgroundColor: '#28a745' },
+                { label: 'Rejected',    data: {{ rejected | tojson }},    backgroundColor: '#7b2d2f' }
+            ]
+        },
+        options: { scales: { y: { beginAtZero: true } } }
+    });
+</script>
+{% endblock %}

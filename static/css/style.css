@@ -1,0 +1,287 @@
+/* Maroon & Gold Theme */
+
+body {
+    background-color: #f5efe6;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+    color: #3a1f1f;
+}
+
+/* Navbar - Maroon */
+.navbar {
+    background-color: #7b2d2f !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* Card styling */
+.card {
+    border-radius: 15px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    background-color: #ffffff;
+    border: none;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.18);
+}
+
+/* Primary button - Gold */
+.btn-primary {
+    background-color: #d4a017 !important;
+    border: none !important;
+    color: #3a1f1f !important;
+    font-weight: 600;
+    box-shadow: 0 4px 8px rgba(212,160,23,0.3);
+    transition: all 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #b88a14 !important;
+    box-shadow: 0 6px 16px rgba(212,160,23,0.4);
+    transform: translateY(-2px);
+    color: #ffffff !important;
+}
+
+/* Success button - Gold variant */
+.btn-success {
+    background-color: #d4a017 !important;
+    border: none !important;
+    color: #3a1f1f !important;
+    font-weight: 600;
+    box-shadow: 0 4px 8px rgba(212,160,23,0.3);
+}
+
+.btn-success:hover {
+    background-color: #b88a14 !important;
+    box-shadow: 0 6px 16px rgba(212,160,23,0.4);
+    transform: translateY(-2px);
+    color: #ffffff !important;
+}
+
+/* Secondary button */
+.btn-secondary {
+    background-color: #7b2d2f !important;
+    border: none !important;
+    color: #ffffff !important;
+}
+
+.btn-secondary:hover {
+    background-color: #5a2123 !important;
+}
+
+/* Outline buttons */
+.btn-outline-primary {
+    border-color: #d4a017 !important;
+    color: #d4a017 !important;
+}
+
+.btn-outline-primary:hover {
+    background-color: #d4a017 !important;
+    color: #3a1f1f !important;
+}
+
+.btn-outline-success {
+    border-color: #7b2d2f !important;
+    color: #7b2d2f !important;
+}
+
+.btn-outline-success:hover {
+    background-color: #7b2d2f !important;
+    color: #ffffff !important;
+}
+
+/* Table styling */
+.table {
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    color: #3a1f1f;
+}
+
+.table thead {
+    background-color: #7b2d2f;
+    color: white;
+}
+
+.table tbody tr:hover {
+    background-color: #f5efe6;
+}
+
+/* Badge colors */
+.badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-weight: 500;
+}
+
+.bg-primary {
+    background-color: #7b2d2f !important;
+}
+
+.bg-success {
+    background-color: #d4a017 !important;
+    color: #3a1f1f !important;
+}
+
+.bg-info {
+    background-color: #d4a017 !important;
+    color: #3a1f1f !important;
+}
+
+.bg-warning {
+    background-color: #b88a14 !important;
+    color: #ffffff !important;
+}
+
+/* Tab styling */
+.nav-tabs {
+    border-bottom: 2px solid #7b2d2f;
+}
+
+.nav-tabs .nav-link.active {
+    font-weight: bold;
+    background-color: #7b2d2f !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 10px 10px 0 0;
+}
+
+.nav-tabs .nav-link {
+    color: #7b2d2f;
+    border: none;
+    transition: all 0.3s;
+}
+
+.nav-tabs .nav-link:hover {
+    background-color: #f5efe6;
+    color: #7b2d2f;
+}
+
+/* Alert styling */
+.alert {
+    border-radius: 12px;
+    border: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.alert-info {
+    background-color: #f5efe6;
+    color: #3a1f1f;
+    border-left: 4px solid #d4a017;
+}
+
+/* Form inputs */
+.form-control {
+    border-radius: 8px;
+    border: 2px solid #f5efe6;
+    transition: all 0.3s;
+    color: #3a1f1f;
+}
+
+.form-control:focus {
+    border-color: #d4a017;
+    box-shadow: 0 0 0 0.2rem rgba(212,160,23,0.25);
+}
+
+.form-select {
+    border-radius: 8px;
+    border: 2px solid #f5efe6;
+    color: #3a1f1f;
+}
+
+.form-select:focus {
+    border-color: #d4a017;
+    box-shadow: 0 0 0 0.2rem rgba(212,160,23,0.25);
+}
+
+/* Dashboard stat cards */
+.card .card-body h3 {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.text-white {
+    color: #ffffff !important;
+}
+
+/* Navbar brand and text */
+.navbar-brand {
+    color: #ffffff !important;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.navbar-text {
+    color: #f5efe6 !important;
+}
+
+/* Button light (for navbar logout) */
+.btn-light {
+    background-color: #d4a017 !important;
+    border: none !important;
+    color: #3a1f1f !important;
+    font-weight: 600;
+}
+
+.btn-light:hover {
+    background-color: #b88a14 !important;
+    color: #ffffff !important;
+}
+
+/* Links */
+a {
+    color: #7b2d2f;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #d4a017;
+}
+
+/* Card headers for API test page */
+.card-header {
+    font-weight: bold;
+}
+
+.bg-primary.text-white {
+    background-color: #7b2d2f !important;
+}
+
+.bg-success.text-white {
+    background-color: #d4a017 !important;
+    color: #3a1f1f !important;
+}
+
+.bg-info.text-white {
+    background-color: #d4a017 !important;
+    color: #3a1f1f !important;
+}
+
+.bg-warning.text-white {
+    background-color: #b88a14 !important;
+}
+
+.bg-danger.text-white {
+    background-color: #7b2d2f !important;
+}
+
+/* Border colors for cards */
+.border-primary {
+    border-color: #7b2d2f !important;
+}
+
+/* Text colors */
+.text-primary {
+    color: #7b2d2f !important;
+}
+
+.text-muted {
+    color: #8a7a6a !important;
+}
+
+/* Smooth animations */
+.btn, .card, .form-control, .nav-link {
+    transition: all 0.3s ease;
+}

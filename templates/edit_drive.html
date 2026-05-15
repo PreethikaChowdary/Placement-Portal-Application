@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}Edit Placement Drive{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="mb-4">Edit Placement Drive</h2>
+                <form method="POST">
+                    <div class="mb-3">
+                        <label class="form-label">Job Title</label>
+                        <input type="text" name="title" class="form-control" value="{{ drive.job_title }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Job Description</label>
+                        <textarea name="description" class="form-control" rows="4" required>{{ drive.job_description }}</textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Required Skills</label>
+                        <input type="text" name="skills" class="form-control" value="{{ drive.required_skills }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Experience Required</label>
+                        <input type="text" name="experience" class="form-control" value="{{ drive.experience }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Salary Range</label>
+                        <input type="text" name="salary" class="form-control" value="{{ drive.salary_range }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Eligibility Criteria</label>
+                        <input type="text" name="eligibility" class="form-control" value="{{ drive.eligibility }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Application Deadline</label>
+                        <input type="date" name="deadline" class="form-control" value="{{ drive.deadline.strftime('%Y-%m-%d') }}" required>
+                    </div>
+                    <div class="alert alert-info small">
+                        Editing will reset status to <strong>Pending</strong> and require admin re-approval.
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                    <a href="{{ url_for('company_dashboard') }}" class="btn btn-secondary">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

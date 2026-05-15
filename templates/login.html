@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-6">
+        <div class="card shadow">
+            <div class="card-body p-5">
+                <h2 class="text-center mb-4">Login to Placement Portal</h2>
+                
+                <form method="POST" action="{{ url_for('login') }}">
+                    <div class="mb-3">
+                        <label class="form-label">Select Role</label>
+                        <select name="role" class="form-select" required>
+                            <option value="">Choose...</option>
+                            <option value="admin">Admin</option>
+                            <option value="company">Company</option>
+                            <option value="student">Student</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Email/Username</label>
+                        <input type="text" name="email" class="form-control" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Password</label>
+                        <input type="password" name="password" class="form-control" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100 mb-3">Login</button>
+                </form>
+
+                <div class="text-center">
+                    <p class="mb-2">Don't have an account?</p>
+                    <a href="{{ url_for('register', role='student') }}" class="btn btn-outline-primary btn-sm me-2">Register as Student</a>
+                    <a href="{{ url_for('register', role='company') }}" class="btn btn-outline-success btn-sm">Register as Company</a>
+                </div>
+
+                <div class="alert alert-info mt-4 small">
+                    <strong>Default Admin Login:</strong><br>
+                    Username: admin<br>
+                    Password: admin123
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
